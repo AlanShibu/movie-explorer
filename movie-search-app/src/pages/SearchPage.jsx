@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import MovieCard from '../components/MovieCard';
 
-function SearchPage()
+function SearchPage({favorites,toggleFavorite})
 {
     const API_KEY = '39dfc73a' ;
     const [searchText, setSearchText] = useState("");
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    console.log("Favorites list",favorites);
 
     async function searchMovies(params) {
         try {
@@ -66,15 +67,19 @@ function SearchPage()
                 {loading && <p>Loading...</p>}
                 {error && <p>{error}</p>}
                 <div className='movie-list'>
-                    {movies.map((movie) => (
+                    {movies.map((movie) => {
+                        const isFavorite = favorites.includes(movie.imdbID);
+                        return (
                         <MovieCard
                             key={movie.imdbID}
                             imdbID={movie.imdbID}
                             title={movie.Title}
                             year={movie.Year}
                             poster={movie.Poster}
-                        />
-                    ))}
+                            isFavorite={isFavorite}
+                            toggleFavorite={toggleFavorite}
+                        />)
+                    })}
                 </div>
             </div>
         </>

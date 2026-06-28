@@ -133,3 +133,12 @@ h1 {
       transform: rotate(360deg);
     }
 }
+
+.movie-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.movie-card-favorite {
+  cursor: pointer;
+}

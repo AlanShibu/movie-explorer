@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function MovieDetails()
+function MovieDetails({ favorites,toggleFavorite})
 {
     const API_KEY= '39dfc73a';
     const { id } = useParams();
@@ -13,7 +13,6 @@ function MovieDetails()
     useEffect(() => {
         fetchMovieData();
     }, [id]);
-
     async function fetchMovieData()
     {
         try{
@@ -60,6 +59,8 @@ function MovieDetails()
                                 <p>{movie.Genre}</p>
                                 <p>{movie.Year} • {movie.Runtime}</p>
                                 <p>Directed by {movie.Director}</p>
+                                <span className = "movie-card-favorite" onClick={() => {toggleFavorite(movie.imdbID)}}
+                                >{ favorites.includes(movie.imdbID) ? "❤️ In watchlist" : "♡ Add to Watchlist"}</span>
                             </div>
                         </div>
                         <div className="movie-content">
