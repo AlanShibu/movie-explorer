@@ -15,6 +15,7 @@ function SearchPage({favorites,toggleFavorite})
         try {
             setLoading(true);
             setError(null);
+            setMovies([]);
             const response = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${searchText}`);
             const data = await response.json();
             console.log(data);
@@ -28,6 +29,7 @@ function SearchPage({favorites,toggleFavorite})
         }
         catch (e) {
             console.error("Error in fetching the movie data", e);
+            setError("Something went wrong while fetching movies!");
         }
         finally {
             setLoading(false);
@@ -76,7 +78,6 @@ function SearchPage({favorites,toggleFavorite})
                     </button>
                 </div>
             </div>
-                {loading && <p>Loading...</p>}
                 {error && <p>{error}</p>}
                 <div className='movie-list'>
                     {movies.map((movie) => {
