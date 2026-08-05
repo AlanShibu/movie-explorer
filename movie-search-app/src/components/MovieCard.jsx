@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 function MovieCard ({imdbID, title,year,poster,isFavorite,toggleFavorite})
 {
-    console.log("Is this movie a favorite one?",isFavorite);
     return (
         <Link to={`/movie/${imdbID}`} className="movie-card-link">
             <div className="movie-card">

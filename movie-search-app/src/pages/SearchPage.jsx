@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import MovieCard from '../components/MovieCard';
+import { Link } from 'react-router-dom';
 
 function SearchPage({favorites,toggleFavorite})
 {
@@ -41,29 +42,40 @@ function SearchPage({favorites,toggleFavorite})
                     <p>Loading movies..</p>
                 </div>
             )}
-            <div className="search-container">
+            <div className='search-container'>
                 <h1>Movie Search</h1>
-                <input type="text"
-                    value={searchText}
-                        onChange={(event) => {
-                            setSearchText(event.target.value)
-                        }}
-                        onKeyDown = {(event) => {
-                            if(event.key === 'Enter')
-                            {
-                                if(searchText.trim() === '')
+                <div className="search-controls">
+                    <div className='favorites-section'>
+                        <Link
+                            to={'/favorites'} className='favorites-link'
+                        >
+                            <span>❤️</span> 
+                            <span>Favorites</span>
+                        </Link>
+                    </div>
+                    <input type="text"
+                        value={searchText}
+                            placeholder='Search movies..'
+                            onChange={(event) => {
+                                setSearchText(event.target.value)
+                            }}
+                            onKeyDown = {(event) => {
+                                if(event.key === 'Enter')
                                 {
-                                    setError("Please enter something to search !");
-                                    return;
+                                    if(searchText.trim() === '')
+                                    {
+                                        setError("Please enter something to search !");
+                                        return;
+                                    }
+                                    searchMovies();
                                 }
-                                searchMovies();
-                            }
-                        }}
-                />
-                <button onClick={searchMovies}>
-                    Search
-                </button>
-                <p>Search text : {searchText}</p>
+                            }}
+                    />
+                    <button onClick={searchMovies}>
+                        Search
+                    </button>
+                </div>
+            </div>
                 {loading && <p>Loading...</p>}
                 {error && <p>{error}</p>}
                 <div className='movie-list'>
@@ -81,7 +93,6 @@ function SearchPage({favorites,toggleFavorite})
                         />)
                     })}
                 </div>
-            </div>
         </>
     )
 }
